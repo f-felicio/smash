@@ -1,26 +1,31 @@
-import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import React, {useState, useEffect} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import Onboarding from '../src/screens/Onboarding';
-import Home from '../src/screens/Home';
-import Filters from '../src/screens/Filters';
-import Details from '../src/screens/Details';
-
-const {Navigator, Screen} = createNativeStackNavigator();
+import OnboardingStack from './OnboardingStack';
+import HomeStack from './HomeStack';
 
 function AppStack() {
+  const [isOnboarding, setIsOnboarding] = useState(null);
+
+  useEffect(() => {
+    async function _retrieveData() {
+      try {
+        const value = await AsyncStorage.getItem('Onboarding');
+        if (!value) {
+          setIsOnboarding(true);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    _retrieveData();
+  }, []);
+
   return (
-    <NavigationContainer>
-      <Navigator
-        screenOptions={{headerShown: false}}
-        initialRouteName={'Onboarding'}>
-        <Screen name="Home" component={Home} />
-        <Screen name="Onboarding" component={Onboarding} />
-        <Screen name="Filters" component={Filters} />
-        <Screen name="Details" component={Details} />
-      </Navigator>
-    </NavigationContainer>
+    <>
+      {isOnboarding && <OnboardingStack />}
+      {!isOnboarding && <HomeStack />}
+    </>
   );
 }
 

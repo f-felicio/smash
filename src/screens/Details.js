@@ -4,6 +4,8 @@ import styled, {css} from 'styled-components';
 import {AirbnbRating} from 'react-native-ratings';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+Icon.loadFont();
+
 export default function Details({route, navigation}) {
   const fighter = route.params?.fighter;
 

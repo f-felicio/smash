@@ -29,13 +29,14 @@ export default function Onboard({navigation}) {
     );
   };
   StatusBar.setHidden(true);
-  const setStore = async () => {
+
+  async function setStore() {
     try {
-      await AsyncStorage.setItem('Onboarding', 'true');
-    } catch (e) {
-      // save error
+      await AsyncStorage.setItem('Onboarding', JSON.stringify(true));
+    } catch (error) {
+      console.log(error);
     }
-  };
+  }
 
   return (
     <Onboarding

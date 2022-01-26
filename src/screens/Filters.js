@@ -3,7 +3,9 @@ import {Platform, StatusBar} from 'react-native';
 import styled, {css} from 'styled-components';
 import {AirbnbRating} from 'react-native-ratings';
 import {CheckBox} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
+Icon.loadFont();
 
 export default function Filters({route, navigation}) {
   const universe = route.params?.universe || null;
@@ -54,9 +56,9 @@ export default function Filters({route, navigation}) {
             key={index}
             title={item}
             iconLeft
-            checkedIcon="dot-circle-o"
-            uncheckedIcon="circle-o"
-            checkedColor="#007AFF"
+            iconType="Ionicons"
+            checkedIcon="radio-button-on"
+            uncheckedIcon="radio-button-off"
             checked={sort === item || false}
             onPress={() => setSort(item)}
             containerStyle={{
